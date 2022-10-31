@@ -24,13 +24,11 @@ export function App () {
   const [total, setTotal] = useState(0);
   const [tags, setTags] = useState('');
 
+
   useEffect(() => {
 
-    if (!query) return;
-    fetchImages(query, page);
-
-  },[query, page]);
-
+  if (!query) return;
+    
   const fetchImages = (query, page) => {
     const perPage = 12;
     setIsLoading(true);
@@ -69,7 +67,13 @@ export function App () {
       })
       .catch(error => setError(error))
       .finally(() => setIsLoading(false));
-  };
+    };
+    
+    fetchImages(query, page);
+    
+},[query, page]);
+
+
 
   const handleSearch = query => {
     setQuery(query);
@@ -112,6 +116,7 @@ export function App () {
       {loadImages && <ImageGallery images={images} onClick={toggleModal} />}
 
       {loadMoreBtn && <Button onClick={onLoadMore}>Load more</Button>}
+      {/* <Button onClick={onLoadMore}>Load more</Button> */}
 
       {showModal && (
         <Modal onClose={toggleModal}>
